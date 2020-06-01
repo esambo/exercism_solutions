@@ -17,13 +17,13 @@ defmodule Wordy do
   end
 
   defp calc_left_to_right(sub_question) do
-    ~r{^(?<left>-?\d*)( (?<operation>plus|minus|divided by|multiplied by|cubed)( (?<right>-?\d+)(?<rest>.*))?)?}
+    ~r{(^(?<left>-?\d+)( (?<operation>plus|minus|divided by|multiplied by) (?<right>-?\d+)(?<rest>.*))*$)|(^(?<error>.*)$)}
     |> Regex.named_captures(sub_question)
     |> Map.new(fn {key, val} -> {String.to_existing_atom(key), val} end)
     |> calc()
   end
 
-  defp calc(%{left: left, operation: "", right: "", rest: ""}) do
+  defp calc(%{left: left, operation: "", right: "", rest: "", error: ""}) do
     left
   end
 
@@ -47,8 +47,8 @@ defmodule Wordy do
     |> calc_left_to_right()
   end
 
-  defp calc(%{left: _left, operation: "cubed", right: "", rest: _rest}) do
-    raise ArgumentError
+  defp calc(%{left: "", error: error}) do
+    raise ArgumentError, "Unexpected pattern: \"#{error}\""
   end
 
   defp result(string) do
