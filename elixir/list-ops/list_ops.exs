@@ -6,31 +6,31 @@ defmodule ListOps do
   # `++`, `--`, `hd`, `tl`, `in`, and `length`.
 
   @spec count(list) :: non_neg_integer
-  def count(l) do
+  def count(_l) do
   end
 
   @spec reverse(list) :: list
-  def reverse(l) do
+  def reverse(_l) do
   end
 
   @spec map(list, (any -> any)) :: list
-  def map(l, f) do
+  def map(_l, _f) do
   end
 
   @spec filter(list, (any -> as_boolean(term))) :: list
-  def filter(l, f) do
+  def filter(_l, _f) do
   end
 
   @type acc :: any
   @spec reduce(list, acc, (any, acc -> acc)) :: acc
-  def reduce(l, acc, f) do
+  def reduce(_l, _acc, _f) do
   end
 
   @spec append(list, list) :: list
-  def append(a, b) do
+  def append(_a, _b) do
   end
 
   @spec concat([[any]]) :: [any]
-  def concat(ll) do
+  def concat(_ll) do
   end
 end
