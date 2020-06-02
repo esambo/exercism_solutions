@@ -6,7 +6,16 @@ defmodule ListOps do
   # `++`, `--`, `hd`, `tl`, `in`, and `length`.
 
   @spec count(list) :: non_neg_integer
-  def count(_l) do
+  def count(l) do
+    do_count(l, 0)
+  end
+
+  defp do_count([], i) do
+    i
+  end
+
+  defp do_count([_hd | rest], i) do
+    do_count(rest, i + 1)
   end
 
   @spec reverse(list) :: list
