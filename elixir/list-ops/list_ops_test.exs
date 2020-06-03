@@ -44,17 +44,14 @@ defmodule ListOpsTest do
     assert L.reverse(Enum.to_list(1..1_000_000)) == Enum.to_list(1_000_000..1)
   end
 
-  @tag :pending
   test "map of empty list" do
     assert L.map([], &(&1 + 1)) == []
   end
 
-  @tag :pending
   test "map of normal list" do
     assert L.map([1, 3, 5, 7], &(&1 + 1)) == [2, 4, 6, 8]
   end
 
-  @tag :pending
   test "map of huge list" do
     assert L.map(Enum.to_list(1..1_000_000), &(&1 + 1)) == Enum.to_list(2..1_000_001)
   end
