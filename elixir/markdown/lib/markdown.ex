@@ -1,4 +1,8 @@
 defmodule Markdown do
+  @moduledoc """
+  [Markdown syntax](https://guides.github.com/features/mastering-markdown/).
+  """
+
   @doc ~S"""
   Parses a given string with Markdown syntax and returns the associated HTML for that string.
 
