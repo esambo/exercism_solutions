@@ -1,5 +1,5 @@
 defmodule MarkdownTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "parses normal text as a paragraph" do
     input = "This will be a paragraph"
