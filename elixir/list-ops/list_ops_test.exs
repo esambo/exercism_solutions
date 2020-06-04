@@ -85,27 +85,22 @@ defmodule ListOpsTest do
     assert L.reduce([1, 2, 3, 4], 10, fn x, acc -> acc - x end) == 0
   end
 
-  @tag :pending
   test "append of empty lists" do
     assert L.append([], []) == []
   end
 
-  @tag :pending
   test "append of empty and non-empty list" do
     assert L.append([], [1, 2, 3, 4]) == [1, 2, 3, 4]
   end
 
-  @tag :pending
   test "append of non-empty and empty list" do
     assert L.append([1, 2, 3, 4], []) == [1, 2, 3, 4]
   end
 
-  @tag :pending
   test "append of non-empty lists" do
     assert L.append([1, 2, 3], [4, 5]) == [1, 2, 3, 4, 5]
   end
 
-  @tag :pending
   test "append of huge lists" do
     assert L.append(Enum.to_list(1..1_000_000), Enum.to_list(1_000_001..2_000_000)) ==
              Enum.to_list(1..2_000_000)
