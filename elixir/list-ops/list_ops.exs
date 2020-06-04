@@ -61,7 +61,12 @@ defmodule ListOps do
 
   @type acc :: any
   @spec reduce(list, acc, (any, acc -> acc)) :: acc
-  def reduce(_l, _acc, _f) do
+  def reduce([], acc, _f) do
+    acc
+  end
+
+  def reduce([hd | tail], acc, f) do
+    reduce(tail, f.(hd, acc), f)
   end
 
   @spec append(list, list) :: list
