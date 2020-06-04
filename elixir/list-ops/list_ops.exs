@@ -79,6 +79,11 @@ defmodule ListOps do
   end
 
   @spec concat([[any]]) :: [any]
-  def concat(_ll) do
+  def concat([]) do
+    []
+  end
+
+  def concat([hd_list | tail_list]) do
+    append(hd_list, concat(tail_list))
   end
 end
