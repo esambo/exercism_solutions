@@ -35,11 +35,11 @@ defmodule Markdown do
     Enum.map(lines, &process/1)
   end
 
-  defp process(t) do
-    case parse_block_type(t) do
-      :header -> enclose_with_header_tag(parse_header_md_level(t))
-      :list -> parse_list_md_level(t)
-      _ -> enclose_with_paragraph_tag(String.split(t))
+  defp process(line) do
+    case parse_block_type(line) do
+      :header -> enclose_with_header_tag(line)
+      :list -> parse_list_md_level(line)
+      _ -> enclose_with_paragraph_tag(line)
     end
   end
 
@@ -54,40 +54,42 @@ defmodule Markdown do
   defp parse_header_md_level("##### " <> t), do: {"5", t}
   defp parse_header_md_level("###### " <> t), do: {"6", t}
 
-  defp parse_list_md_level(l) do
-    t = String.split(String.trim_leading(l, "* "))
-    "<li>#{join_words_with_tags(t)}</li>"
+  defp parse_list_md_level(line) do
+    words = String.split(String.trim_leading(line, "* "))
+    "<li>#{join_words_with_tags(words)}</li>"
   end
 
-  defp enclose_with_header_tag({hl, htl}) do
-    "<h#{hl}>#{htl}</h#{hl}>"
+  defp enclose_with_header_tag(line) do
+    {level, text} = parse_header_md_level(line)
+    "<h#{level}>#{text}</h#{level}>"
   end
 
-  defp enclose_with_paragraph_tag(t) do
-    "<p>#{join_words_with_tags(t)}</p>"
+  defp enclose_with_paragraph_tag(line) do
+    words = String.split(line)
+    "<p>#{join_words_with_tags(words)}</p>"
   end
 
-  defp join_words_with_tags(t) do
-    Enum.join(Enum.map(t, fn w -> replace_md_with_tag(w) end), " ")
+  defp join_words_with_tags(words) do
+    Enum.join(Enum.map(words, fn w -> replace_md_with_tag(w) end), " ")
   end
 
-  defp replace_md_with_tag(w) do
-    replace_suffix_md(replace_prefix_md(w))
+  defp replace_md_with_tag(word) do
+    replace_suffix_md(replace_prefix_md(word))
   end
 
-  defp replace_prefix_md(w) do
+  defp replace_prefix_md(word) do
     cond do
-      w =~ ~r/^#{"__"}{1}/ -> String.replace(w, ~r/^#{"__"}{1}/, "<strong>", global: false)
-      w =~ ~r/^[#{"_"}{1}][^#{"_"}+]/ -> String.replace(w, ~r/_/, "<em>", global: false)
-      true -> w
+      word =~ ~r/^#{"__"}{1}/ -> String.replace(word, ~r/^#{"__"}{1}/, "<strong>", global: false)
+      word =~ ~r/^[#{"_"}{1}][^#{"_"}+]/ -> String.replace(word, ~r/_/, "<em>", global: false)
+      true -> word
     end
   end
 
-  defp replace_suffix_md(w) do
+  defp replace_suffix_md(word) do
     cond do
-      w =~ ~r/#{"__"}{1}$/ -> String.replace(w, ~r/#{"__"}{1}$/, "</strong>")
-      w =~ ~r/[^#{"_"}{1}]/ -> String.replace(w, ~r/_/, "</em>")
-      true -> w
+      word =~ ~r/#{"__"}{1}$/ -> String.replace(word, ~r/#{"__"}{1}$/, "</strong>")
+      word =~ ~r/[^#{"_"}{1}]/ -> String.replace(word, ~r/_/, "</em>")
+      true -> word
     end
   end
 
