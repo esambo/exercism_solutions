@@ -39,7 +39,7 @@ defmodule Markdown do
     case parse_block_type(line) do
       :header -> enclose_with_header_tag(line)
       :list -> enclose_with_list_item_tag(line)
-      _ -> enclose_with_paragraph_tag(line)
+      :paragraph -> enclose_with_paragraph_tag(line)
     end
   end
 
