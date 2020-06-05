@@ -54,8 +54,10 @@ defmodule Markdown do
   defp parse_header_md_level("##### " <> t), do: {"5", t}
   defp parse_header_md_level("###### " <> t), do: {"6", t}
 
+  defp parse_list_md("*" <> t), do: t
+
   defp parse_list_md_level(line) do
-    line = String.trim_leading(line, "* ")
+    line = parse_list_md(line)
     "<li>#{join_words_with_tags(line)}</li>"
   end
 
