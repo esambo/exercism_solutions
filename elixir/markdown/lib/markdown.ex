@@ -53,10 +53,12 @@ defmodule Markdown do
   defp is_li?("*" <> _), do: true
   defp is_li?(_), do: false
 
-  defp parse_header_md_level(hwt) do
-    [h | t] = String.split(hwt, " ", parts: 2)
-    {to_string(String.length(h)), t}
-  end
+  defp parse_header_md_level("# " <> t), do: {"1", t}
+  defp parse_header_md_level("## " <> t), do: {"2", t}
+  defp parse_header_md_level("### " <> t), do: {"3", t}
+  defp parse_header_md_level("#### " <> t), do: {"4", t}
+  defp parse_header_md_level("##### " <> t), do: {"5", t}
+  defp parse_header_md_level("###### " <> t), do: {"6", t}
 
   defp parse_list_md_level(l) do
     t = String.split(String.trim_leading(l, "* "))
