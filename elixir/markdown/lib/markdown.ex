@@ -16,7 +16,11 @@ defmodule Markdown do
   """
   @spec parse(String.t()) :: String.t()
   def parse(m) do
-    patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
+    m
+    |> String.split("\n")
+    |> Enum.map(fn t -> process(t) end)
+    |> Enum.join()
+    |> patch()
   end
 
   defp process(t) do
@@ -74,10 +78,8 @@ defmodule Markdown do
   end
 
   defp patch(l) do
-    String.replace_suffix(
-      String.replace(l, "<li>", "<ul>" <> "<li>", global: false),
-      "</li>",
-      "</li>" <> "</ul>"
-    )
+    l
+    |> String.replace("<li>", "<ul>" <> "<li>", global: false)
+    |> String.replace_suffix("</li>", "</li>" <> "</ul>")
   end
 end
