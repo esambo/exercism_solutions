@@ -20,7 +20,7 @@ defmodule Markdown do
     |> split_lines()
     |> process_all_lines()
     |> combine_lines()
-    |> wrap_li_in_ul()
+    |> enclose_with_list_tag()
   end
 
   defp split_lines(markdown) do
@@ -97,8 +97,8 @@ defmodule Markdown do
     end
   end
 
-  defp wrap_li_in_ul(l) do
-    l
+  defp enclose_with_list_tag(line) do
+    line
     |> String.replace("<li>", "<ul><li>", global: false)
     |> String.replace_suffix("</li>", "</li></ul>")
   end
