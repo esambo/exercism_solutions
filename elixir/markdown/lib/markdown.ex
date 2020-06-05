@@ -70,11 +70,15 @@ defmodule Markdown do
   end
 
   defp join_words_with_tags(words) do
-    Enum.join(Enum.map(words, fn w -> replace_md_with_tag(w) end), " ")
+    words
+    |> Enum.map(&replace_md_with_tag/1)
+    |> Enum.join(" ")
   end
 
   defp replace_md_with_tag(word) do
-    replace_suffix_md(replace_prefix_md(word))
+    word
+    |> replace_prefix_md()
+    |> replace_suffix_md()
   end
 
   defp replace_prefix_md(word) do
