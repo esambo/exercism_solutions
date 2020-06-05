@@ -36,8 +36,8 @@ defmodule Markdown do
   end
 
   defp process(t) do
-    if String.starts_with?(t, "#") || String.starts_with?(t, "*") do
-      if String.starts_with?(t, "#") do
+    if is_header?(t) || is_li?(t) do
+      if is_header?(t) do
         enclose_with_header_tag(parse_header_md_level(t))
       else
         parse_list_md_level(t)
@@ -46,6 +46,12 @@ defmodule Markdown do
       enclose_with_paragraph_tag(String.split(t))
     end
   end
+
+  defp is_header?("#" <> _), do: true
+  defp is_header?(_), do: false
+
+  defp is_li?("*" <> _), do: true
+  defp is_li?(_), do: false
 
   defp parse_header_md_level(hwt) do
     [h | t] = String.split(hwt)
