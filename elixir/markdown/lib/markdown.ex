@@ -55,8 +55,8 @@ defmodule Markdown do
   defp parse_header_md_level("###### " <> t), do: {"6", t}
 
   defp parse_list_md_level(line) do
-    words = String.split(String.trim_leading(line, "* "))
-    "<li>#{join_words_with_tags(words)}</li>"
+    line = String.trim_leading(line, "* ")
+    "<li>#{join_words_with_tags(line)}</li>"
   end
 
   defp enclose_with_header_tag(line) do
@@ -65,12 +65,12 @@ defmodule Markdown do
   end
 
   defp enclose_with_paragraph_tag(line) do
-    words = String.split(line)
-    "<p>#{join_words_with_tags(words)}</p>"
+    "<p>#{join_words_with_tags(line)}</p>"
   end
 
-  defp join_words_with_tags(words) do
-    words
+  defp join_words_with_tags(line) do
+    line
+    |> String.split()
     |> Enum.map(&replace_md_with_tag/1)
     |> Enum.join(" ")
   end
