@@ -20,7 +20,7 @@ defmodule Markdown do
     |> split_lines()
     |> process_all_lines()
     |> combine_lines()
-    |> enclose_with_list_tag()
+    |> enclose_with_unordered_list_tag()
   end
 
   defp split_lines(markdown) do
@@ -38,7 +38,7 @@ defmodule Markdown do
   defp process(line) do
     case parse_block_type(line) do
       :header -> enclose_with_header_tag(line)
-      :list -> parse_list_md_level(line)
+      :list -> enclose_with_list_item_tag(line)
       _ -> enclose_with_paragraph_tag(line)
     end
   end
@@ -56,7 +56,7 @@ defmodule Markdown do
 
   defp parse_list_md("*" <> t), do: t
 
-  defp parse_list_md_level(line) do
+  defp enclose_with_list_item_tag(line) do
     line = parse_list_md(line)
     "<li>#{join_words_with_tags(line)}</li>"
   end
@@ -99,7 +99,7 @@ defmodule Markdown do
     end
   end
 
-  defp enclose_with_list_tag(line) do
+  defp enclose_with_unordered_list_tag(line) do
     line
     |> String.replace("<li>", "<ul><li>", global: false)
     |> String.replace_suffix("</li>", "</li></ul>")
