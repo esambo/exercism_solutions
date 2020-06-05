@@ -36,22 +36,16 @@ defmodule Markdown do
   end
 
   defp process(t) do
-    if is_header?(t) || is_li?(t) do
-      if is_header?(t) do
-        enclose_with_header_tag(parse_header_md_level(t))
-      else
-        parse_list_md_level(t)
-      end
-    else
-      enclose_with_paragraph_tag(String.split(t))
+    case parse_block_type(t) do
+      :header -> enclose_with_header_tag(parse_header_md_level(t))
+      :list -> parse_list_md_level(t)
+      _ -> enclose_with_paragraph_tag(String.split(t))
     end
   end
 
-  defp is_header?("#" <> _), do: true
-  defp is_header?(_), do: false
-
-  defp is_li?("*" <> _), do: true
-  defp is_li?(_), do: false
+  defp parse_block_type("#" <> _), do: :header
+  defp parse_block_type("*" <> _), do: :list
+  defp parse_block_type(_), do: :paragraph
 
   defp parse_header_md_level("# " <> t), do: {"1", t}
   defp parse_header_md_level("## " <> t), do: {"2", t}
