@@ -15,12 +15,24 @@ defmodule Markdown do
       "<h1>Header!</h1><ul><li><strong>Bold Item</strong></li><li><em>Italic Item</em></li></ul>"
   """
   @spec parse(String.t()) :: String.t()
-  def parse(m) do
-    m
-    |> String.split("\n")
-    |> Enum.map(fn t -> process(t) end)
-    |> Enum.join()
-    |> patch()
+  def parse(markdown) do
+    markdown
+    |> split_lines()
+    |> process_all_lines()
+    |> combine_lines()
+    |> wrap_li_in_ul()
+  end
+
+  defp split_lines(markdown) do
+    String.split(markdown, "\n")
+  end
+
+  defp combine_lines(lines) do
+    Enum.join(lines)
+  end
+
+  defp process_all_lines(lines) do
+    Enum.map(lines, &process/1)
   end
 
   defp process(t) do
@@ -77,7 +89,7 @@ defmodule Markdown do
     end
   end
 
-  defp patch(l) do
+  defp wrap_li_in_ul(l) do
     l
     |> String.replace("<li>", "<ul>" <> "<li>", global: false)
     |> String.replace_suffix("</li>", "</li>" <> "</ul>")
