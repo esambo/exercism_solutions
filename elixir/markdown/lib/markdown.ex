@@ -57,8 +57,10 @@ defmodule Markdown do
   defp parse_list_md("* " <> t), do: t
 
   defp enclose_with_list_item_tag(line) do
-    line = parse_list_md(line)
-    tag_as(join_words_with_tags(line), "li")
+    line
+    |> parse_list_md()
+    |> join_words_with_tags()
+    |> tag_as("li")
   end
 
   defp enclose_with_header_tag(line) do
@@ -67,7 +69,9 @@ defmodule Markdown do
   end
 
   defp enclose_with_paragraph_tag(line) do
-    tag_as(join_words_with_tags(line), "p")
+    line
+    |> join_words_with_tags()
+    |> tag_as("p")
   end
 
   defp join_words_with_tags(line) do
@@ -78,13 +82,17 @@ defmodule Markdown do
 
   defp replace_strong_md(line) do
     Regex.replace(~r/(?<=^| )(__.+__)(?=$| )/, line, fn _, x ->
-      tag_as(chop_ends_off_by(x, 2), "strong")
+      x
+      |> chop_ends_off_by(2)
+      |> tag_as("strong")
     end)
   end
 
   defp replace_em_md(line) do
     Regex.replace(~r/(?<=^| )(_.+_)(?=$| )/, line, fn _, x ->
-      tag_as(chop_ends_off_by(x, 1), "em")
+      x
+      |> chop_ends_off_by(1)
+      |> tag_as("em")
     end)
   end
 
