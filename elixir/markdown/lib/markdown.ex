@@ -58,16 +58,16 @@ defmodule Markdown do
 
   defp enclose_with_list_item_tag(line) do
     line = parse_list_md(line)
-    "<li>#{join_words_with_tags(line)}</li>"
+    tag_as(join_words_with_tags(line), "li")
   end
 
   defp enclose_with_header_tag(line) do
     {level, text} = parse_header_md_level(line)
-    "<h#{level}>#{text}</h#{level}>"
+    tag_as(text, "h#{level}")
   end
 
   defp enclose_with_paragraph_tag(line) do
-    "<p>#{join_words_with_tags(line)}</p>"
+    tag_as(join_words_with_tags(line), "p")
   end
 
   defp join_words_with_tags(line) do
@@ -78,18 +78,22 @@ defmodule Markdown do
 
   defp replace_strong_md(line) do
     Regex.replace(~r/(?<=^| )(__.+__)(?=$| )/, line, fn _, x ->
-      "<strong>#{chop_ends_off_by(x, 2)}</strong>"
+      tag_as(chop_ends_off_by(x, 2), "strong")
     end)
   end
 
   defp replace_em_md(line) do
     Regex.replace(~r/(?<=^| )(_.+_)(?=$| )/, line, fn _, x ->
-      "<em>#{chop_ends_off_by(x, 1)}</em>"
+      tag_as(chop_ends_off_by(x, 1), "em")
     end)
   end
 
   defp chop_ends_off_by(text, chars) do
     String.slice(text, chars..-(chars + 1))
+  end
+
+  defp tag_as(text, tag) do
+    "<#{tag}>#{text}</#{tag}>"
   end
 
   defp enclose_with_unordered_list_tag(html) do
