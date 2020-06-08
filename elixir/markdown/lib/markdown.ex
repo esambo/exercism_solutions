@@ -72,31 +72,24 @@ defmodule Markdown do
 
   defp join_words_with_tags(line) do
     line
-    |> String.split()
-    |> Enum.map(&replace_md_with_tag/1)
-    |> Enum.join(" ")
+    |> replace_strong_md()
+    |> replace_em_md()
   end
 
-  defp replace_md_with_tag(word) do
-    word
-    |> replace_prefix_md()
-    |> replace_suffix_md()
+  defp replace_strong_md(line) do
+    Regex.replace(~r/(?<=^| )(__.+__)(?=$| )/, line, fn _, x ->
+      "<strong>#{chop_ends_off_by(x, 2)}</strong>"
+    end)
   end
 
-  defp replace_prefix_md(word) do
-    cond do
-      word =~ ~r/^#{"__"}{1}/ -> String.replace(word, ~r/^#{"__"}{1}/, "<strong>", global: false)
-      word =~ ~r/^[#{"_"}{1}][^#{"_"}+]/ -> String.replace(word, ~r/_/, "<em>", global: false)
-      true -> word
-    end
+  defp replace_em_md(line) do
+    Regex.replace(~r/(?<=^| )(_.+_)(?=$| )/, line, fn _, x ->
+      "<em>#{chop_ends_off_by(x, 1)}</em>"
+    end)
   end
 
-  defp replace_suffix_md(word) do
-    cond do
-      word =~ ~r/#{"__"}{1}$/ -> String.replace(word, ~r/#{"__"}{1}$/, "</strong>")
-      word =~ ~r/[^#{"_"}{1}]/ -> String.replace(word, ~r/_/, "</em>")
-      true -> word
-    end
+  defp chop_ends_off_by(text, chars) do
+    String.slice(text, chars..-(chars + 1))
   end
 
   defp enclose_with_unordered_list_tag(html) do
