@@ -20,7 +20,7 @@ defmodule Markdown do
     |> split_lines()
     |> process_all_lines()
     |> combine_lines()
-    |> enclose_with_unordered_list_tag()
+    |> maybe_enclose_with_unordered_list_tag()
   end
 
   defp split_lines(markdown) do
@@ -76,11 +76,11 @@ defmodule Markdown do
 
   defp parse_inline_md(line) do
     line
-    |> replace_strong_md()
-    |> replace_em_md()
+    |> maybe_replace_strong_md()
+    |> maybe_replace_em_md()
   end
 
-  defp replace_strong_md(line) do
+  defp maybe_replace_strong_md(line) do
     Regex.replace(~r/(?<=^| )(__.+__)(?=$| )/, line, fn _, x ->
       x
       |> chop_ends_off_by(2)
@@ -88,7 +88,7 @@ defmodule Markdown do
     end)
   end
 
-  defp replace_em_md(line) do
+  defp maybe_replace_em_md(line) do
     Regex.replace(~r/(?<=^| )(_.+_)(?=$| )/, line, fn _, x ->
       x
       |> chop_ends_off_by(1)
@@ -104,7 +104,7 @@ defmodule Markdown do
     "<#{tag}>#{text}</#{tag}>"
   end
 
-  defp enclose_with_unordered_list_tag(html) do
+  defp maybe_enclose_with_unordered_list_tag(html) do
     Regex.replace(~r{(?<!<li>)(<li>.+</li>)(?!</li>)}, html, fn _, x ->
       tag_as(x, "ul")
     end)
