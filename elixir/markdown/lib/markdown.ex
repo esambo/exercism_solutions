@@ -99,8 +99,8 @@ defmodule Markdown do
     end
   end
 
-  defp enclose_with_unordered_list_tag(line) do
-    line
+  defp enclose_with_unordered_list_tag(html) do
+    html
     |> String.replace("<li>", "<ul><li>", global: false)
     |> String.replace_suffix("</li>", "</li></ul>")
   end
