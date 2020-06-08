@@ -59,7 +59,7 @@ defmodule Markdown do
   defp enclose_with_list_item_tag(line) do
     line
     |> parse_list_md()
-    |> join_words_with_tags()
+    |> parse_inline_md()
     |> tag_as("li")
   end
 
@@ -70,11 +70,11 @@ defmodule Markdown do
 
   defp enclose_with_paragraph_tag(line) do
     line
-    |> join_words_with_tags()
+    |> parse_inline_md()
     |> tag_as("p")
   end
 
-  defp join_words_with_tags(line) do
+  defp parse_inline_md(line) do
     line
     |> replace_strong_md()
     |> replace_em_md()
