@@ -44,7 +44,7 @@ defmodule Markdown do
   end
 
   defp parse_block_type("#" <> _), do: :header
-  defp parse_block_type("*" <> _), do: :list
+  defp parse_block_type("* " <> _), do: :list
   defp parse_block_type(_), do: :paragraph
 
   defp parse_header_md_level("# " <> t), do: {"1", t}
@@ -54,7 +54,7 @@ defmodule Markdown do
   defp parse_header_md_level("##### " <> t), do: {"5", t}
   defp parse_header_md_level("###### " <> t), do: {"6", t}
 
-  defp parse_list_md("*" <> t), do: t
+  defp parse_list_md("* " <> t), do: t
 
   defp enclose_with_list_item_tag(line) do
     line = parse_list_md(line)
