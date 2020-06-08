@@ -96,17 +96,17 @@ defmodule Markdown do
     end)
   end
 
+  defp maybe_enclose_with_unordered_list_tag(html) do
+    Regex.replace(~r{(?<!<li>)(<li>.+</li>)(?!</li>)}, html, fn _, x ->
+      tag_as(x, "ul")
+    end)
+  end
+
   defp chop_ends_off_by(text, chars) do
     String.slice(text, chars..-(chars + 1))
   end
 
   defp tag_as(text, tag) do
     "<#{tag}>#{text}</#{tag}>"
-  end
-
-  defp maybe_enclose_with_unordered_list_tag(html) do
-    Regex.replace(~r{(?<!<li>)(<li>.+</li>)(?!</li>)}, html, fn _, x ->
-      tag_as(x, "ul")
-    end)
   end
 end
