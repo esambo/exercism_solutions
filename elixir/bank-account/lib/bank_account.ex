@@ -26,6 +26,7 @@ defmodule BankAccount do
   """
   @spec close_bank(account) :: none
   def close_bank(account) do
+    GenServer.stop(account)
   end
 
   @doc """
@@ -33,7 +34,11 @@ defmodule BankAccount do
   """
   @spec balance(account) :: integer
   def balance(account) do
-    GenServer.call(account, :balance)
+    if Process.alive?(account) do
+      GenServer.call(account, :balance)
+    else
+      {:error, :account_closed}
+    end
   end
 
   @doc """
@@ -41,7 +46,11 @@ defmodule BankAccount do
   """
   @spec update(account, integer) :: any
   def update(account, amount) do
-    :ok = GenServer.call(account, {:update, amount})
+    if Process.alive?(account) do
+      :ok = GenServer.call(account, {:update, amount})
+    else
+      {:error, :account_closed}
+    end
   end
 
   # Callbacks
