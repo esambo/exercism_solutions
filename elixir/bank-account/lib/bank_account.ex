@@ -41,6 +41,7 @@ defmodule BankAccount do
   """
   @spec update(account, integer) :: any
   def update(account, amount) do
+    :ok = GenServer.call(account, {:update, amount})
   end
 
   # Callbacks
@@ -53,5 +54,11 @@ defmodule BankAccount do
   @impl true
   def handle_call(:balance, _from, balance) do
     {:reply, balance, balance}
+  end
+
+  @impl true
+  def handle_call({:update, amount}, _from, balance) do
+    new_balance = balance + amount
+    {:reply, :ok, new_balance}
   end
 end
