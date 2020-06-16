@@ -6,7 +6,6 @@ defmodule BankAccountTest do
     {:ok, account: account}
   end
 
-  # @tag :pending
   test "initial balance is 0", %{account: account} do
     assert BankAccount.balance(account) == 0
   end

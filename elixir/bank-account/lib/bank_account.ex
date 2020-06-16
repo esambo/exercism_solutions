@@ -3,6 +3,10 @@ defmodule BankAccount do
   A bank account that supports access from multiple processes.
   """
 
+  # API
+
+  use GenServer
+
   @typedoc """
   An account handle.
   """
@@ -13,6 +17,8 @@ defmodule BankAccount do
   """
   @spec open_bank() :: account
   def open_bank() do
+    {:ok, account} = GenServer.start_link(__MODULE__, 0)
+    account
   end
 
   @doc """
@@ -27,6 +33,7 @@ defmodule BankAccount do
   """
   @spec balance(account) :: integer
   def balance(account) do
+    GenServer.call(account, :balance)
   end
 
   @doc """
@@ -34,5 +41,17 @@ defmodule BankAccount do
   """
   @spec update(account, integer) :: any
   def update(account, amount) do
+  end
+
+  # Callbacks
+
+  @impl true
+  def init(account) do
+    {:ok, account}
+  end
+
+  @impl true
+  def handle_call(:balance, _from, balance) do
+    {:reply, balance, balance}
   end
 end
