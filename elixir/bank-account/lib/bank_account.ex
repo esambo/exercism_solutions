@@ -3,7 +3,7 @@ defmodule BankAccount do
   A bank account that supports access from multiple processes.
   """
 
-  # API
+  # Client
 
   use GenServer
 
@@ -53,7 +53,7 @@ defmodule BankAccount do
     end
   end
 
-  # Callbacks
+  # Server (callbacks)
 
   @impl true
   def init(account) do
