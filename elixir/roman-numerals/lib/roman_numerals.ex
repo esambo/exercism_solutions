@@ -1,9 +1,9 @@
-defmodule Roman do
+defmodule RomanNumerals do
   @doc """
   Convert the number to a roman number.
   """
-  @spec numerals(pos_integer) :: String.t()
-  def numerals(number) do
+  @spec numeral(pos_integer) :: String.t()
+  def numeral(number) do
     to_roman(number, "")
   end
 
