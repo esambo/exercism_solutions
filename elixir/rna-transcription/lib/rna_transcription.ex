@@ -1,12 +1,13 @@
-defmodule RNATranscription do
+defmodule RnaTranscription do
   @doc """
-  Transcribes a character list representing DNA nucleotides to RNA.
+  Transcribes a character list representing DNA nucleotides to RNA
 
   ## Examples
 
-    iex> RNATranscription.to_rna('ACTG')
-    'UGAC'
+  iex> RnaTranscription.to_rna('ACTG')
+  'UGAC'
   """
+  @spec to_rna([char]) :: [char]
   @spec to_rna([char], [char]) :: [char]
   def to_rna(dna, result \\ [])
 

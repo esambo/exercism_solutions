@@ -1,38 +1,33 @@
-if !System.get_env("EXERCISM_TEST_EXAMPLES") do
-  Code.load_file("rna_transcription.exs", __DIR__)
-end
-
-ExUnit.start()
-ExUnit.configure(exclude: :pending, trace: true)
-
-defmodule RNATranscriptionTest do
+defmodule RnaTranscriptionTest do
   use ExUnit.Case
 
+  # @tag :pending
+  test "empty RNA sequence" do
+    assert RnaTranscription.to_rna('') == ''
+  end
+
+  @tag :pending
   test "transcribes guanine to cytosine" do
-    assert RNATranscription.to_rna('G') == 'C'
+    assert RnaTranscription.to_rna('G') == 'C'
   end
 
+  @tag :pending
   test "transcribes cytosine to guanine" do
-    assert RNATranscription.to_rna('C') == 'G'
+    assert RnaTranscription.to_rna('C') == 'G'
   end
 
+  @tag :pending
   test "transcribes thymidine to adenine" do
-    assert RNATranscription.to_rna('T') == 'A'
+    assert RnaTranscription.to_rna('T') == 'A'
   end
 
+  @tag :pending
   test "transcribes adenine to uracil" do
-    assert RNATranscription.to_rna('A') == 'U'
+    assert RnaTranscription.to_rna('A') == 'U'
   end
 
-  test "it transcribes some DNA nucleotides to RNA equivalents" do
-    assert RNATranscription.to_rna('AC') == 'UG'
-  end
-
-  test "it transcribes doctest example" do
-    assert RNATranscription.to_rna('ACTG') == 'UGAC'
-  end
-
-  test "it transcribes all DNA nucleotides to RNA equivalents" do
-    assert RNATranscription.to_rna('ACGTGGTCTTAA') == 'UGCACCAGAAUU'
+  @tag :pending
+  test "it transcribes all dna nucleotides to rna equivalents" do
+    assert RnaTranscription.to_rna('ACGTGGTCTTAA') == 'UGCACCAGAAUU'
   end
 end
