@@ -1,10 +1,8 @@
-defmodule Words do
+defmodule WordCount do
   @doc """
   Count the number of words in the sentence.
 
   Words are compared case-insensitively.
-  Underscore (_) are ignored and split words apart.
-  Digits, dashes (-) and German umlaute are included as part of a word.
   """
   @spec count(String.t()) :: map
   def count(sentence) do
