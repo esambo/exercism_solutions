@@ -18,16 +18,16 @@ defmodule WordCountTest do
   end
 
   # @tag :pending
-  # test "handles cramped list" do
-  #   expected = %{"one" => 1, "two" => 1, "three" => 1}
-  #   assert WordCount.count("one,two,three") == expected
-  # end
+  test "handles cramped list" do
+    expected = %{"one" => 1, "two" => 1, "three" => 1}
+    assert WordCount.count("one,two,three") == expected
+  end
 
   # @tag :pending
-  # test "handles expanded list" do
-  #   expected = %{"one" => 1, "two" => 1, "three" => 1}
-  #   assert WordCount.count("one,\ntwo,\nthree") == expected
-  # end
+  test "handles expanded list" do
+    expected = %{"one" => 1, "two" => 1, "three" => 1}
+    assert WordCount.count("one,\ntwo,\nthree") == expected
+  end
 
   # @tag :pending
   test "ignore punctuation" do
@@ -60,16 +60,16 @@ defmodule WordCountTest do
   end
 
   # @tag :pending
-  # test "with apostrophes" do
-  #   expected = %{"first" => 1, "don't" => 2, "laugh" => 1, "then" => 1, "cry" => 1}
-  #   assert WordCount.count("First: don't laugh. Then: don't cry.") == expected
-  # end
+  test "with apostrophes" do
+    expected = %{"first" => 1, "don't" => 2, "laugh" => 1, "then" => 1, "cry" => 1}
+    assert WordCount.count("First: don't laugh. Then: don't cry.") == expected
+  end
 
   # @tag :pending
-  # test "with quotations" do
-  #   expected = %{"joe" => 1, "can't" => 1, "tell" => 1, "between" => 1, "large" => 2, "and" => 1}
-  #   assert WordCount.count("Joe can't tell between 'large' and large.") == expected
-  # end
+  test "with quotations" do
+    expected = %{"joe" => 1, "can't" => 1, "tell" => 1, "between" => 1, "large" => 2, "and" => 1}
+    assert WordCount.count("Joe can't tell between 'large' and large.") == expected
+  end
 
   # @tag :pending
   test "with quotations at the end at the beginning of the sentence" do
@@ -78,26 +78,26 @@ defmodule WordCountTest do
   end
 
   # @tag :pending
-  # test "substrings from the beginning" do
-  #   expected = %{
-  #     "joe" => 1,
-  #     "can't" => 1,
-  #     "tell" => 1,
-  #     "between" => 1,
-  #     "app" => 1,
-  #     "apple" => 1,
-  #     "and" => 1,
-  #     "a" => 1
-  #   }
+  test "substrings from the beginning" do
+    expected = %{
+      "joe" => 1,
+      "can't" => 1,
+      "tell" => 1,
+      "between" => 1,
+      "app" => 1,
+      "apple" => 1,
+      "and" => 1,
+      "a" => 1
+    }
 
-  #   assert WordCount.count("Joe can't tell between app, apple and a.") == expected
-  # end
+    assert WordCount.count("Joe can't tell between app, apple and a.") == expected
+  end
 
   # @tag :pending
-  # test "multiple spaces not detected as a word" do
-  #   expected = %{"multiple" => 1, "whitespaces" => 1}
-  #   assert WordCount.count(" multiple   whitespaces") == expected
-  # end
+  test "multiple spaces not detected as a word" do
+    expected = %{"multiple" => 1, "whitespaces" => 1}
+    assert WordCount.count(" multiple   whitespaces") == expected
+  end
 
   # @tag :pending
   test "alternating word separators not detected as a word" do
@@ -112,8 +112,8 @@ defmodule WordCountTest do
   end
 
   # @tag :pending
-  # test "Polish" do
-  #   expected = %{"a" => 1, "w" => 1, "piątym" => 1, "stoi" => 1, "sześć" => 1, "fortepianów" => 1}
-  #   assert WordCount.count("A w piątym stoi sześć fortepianów") == expected
-  # end
+  test "Polish" do
+    expected = %{"a" => 1, "w" => 1, "piątym" => 1, "stoi" => 1, "sześć" => 1, "fortepianów" => 1}
+    assert WordCount.count("A w piątym stoi sześć fortepianów") == expected
+  end
 end

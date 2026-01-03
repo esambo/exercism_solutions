@@ -9,8 +9,13 @@ defmodule WordCount do
     remaining_words =
       sentence
       |> String.downcase
-      |> String.replace(~r/_/, " ")
-      |> String.replace(~r/[^a-z0-9\-äöüß ]/, "")
+      |> String.replace(~r/[_,]/, " ")
+      |> String.replace(~r/[^a-z0-9\-äöüßąóść' ]/, "")
+      |> String.replace(~r/\s+/, " ")
+      |> String.trim()
+      |> String.replace([" '", "' "], " ")
+      |> String.replace(~r/^'/, "")
+      |> String.replace(~r/'$/, "")
       |> String.split(~r/\s+/)
     occurances(remaining_words, %{})
   end
