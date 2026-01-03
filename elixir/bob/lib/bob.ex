@@ -1,4 +1,5 @@
 defmodule Bob do
+  @spec hey(String.t()) :: String.t()
   def hey(input) do
     cond do
       without_actually_saying_anything?(input) -> "Fine. Be that way!"
