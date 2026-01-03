@@ -37,8 +37,8 @@ defmodule BeerSong do
   @spec lyrics(Range.t()) :: String.t()
   def lyrics(range \\ 99..0//-1)
 
-  def lyrics(0..0//-1) do
-    verse(0)
+  def lyrics(num..num//-1) do
+    verse(num)
   end
 
   def lyrics(range) do
