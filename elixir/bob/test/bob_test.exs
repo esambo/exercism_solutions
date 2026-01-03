@@ -106,9 +106,9 @@ defmodule BobTest do
   end
 
   # @tag :pending
-  # test "non-letters with question" do
-  #   assert Bob.hey(":) ?") == "Sure."
-  # end
+  test "non-letters with question" do
+    assert Bob.hey(":) ?") == "Sure."
+  end
 
   # @tag :pending
   test "prattling on" do
@@ -121,9 +121,9 @@ defmodule BobTest do
   end
 
   # @tag :pending
-  # test "ending with whitespace" do
-  #   assert Bob.hey("Okay if like my  spacebar  quite a bit?   ") == "Sure."
-  # end
+  test "ending with whitespace" do
+    assert Bob.hey("Okay if like my  spacebar  quite a bit?   ") == "Sure."
+  end
 
   # @tag :pending
   test "other whitespace" do

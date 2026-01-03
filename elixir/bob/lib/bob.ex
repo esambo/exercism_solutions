@@ -1,6 +1,7 @@
 defmodule Bob do
   @spec hey(String.t()) :: String.t()
-  def hey(input) do
+  def hey(raw_input) do
+    input = String.trim(raw_input)
     cond do
       without_actually_saying_anything?(input) -> "Fine. Be that way!"
       yell_question?(input) -> "Calm down, I know what I'm doing!"
@@ -23,10 +24,10 @@ defmodule Bob do
   end
 
   defp without_actually_saying_anything?(input) do
-    String.trim(input) == ""
+    input == ""
   end
 
   defp numbers?(input) do
-    String.match?(input, ~r/^[\d,? ]+$/)
+    String.match?(input, ~r/^[\d,?:) ]+$/)
   end
 end
