@@ -112,27 +112,27 @@ defmodule ListOpsTest do
   end
 
   describe "foldr" do
-    # @tag :pending
-    # test "empty list" do
-    #   assert L.foldr([], 2, &(&1 * &2)) == 2
-    # end
+    @tag :pending
+    test "empty list" do
+      assert L.foldr([], 2, &(&1 * &2)) == 2
+    end
 
-    # @tag :pending
-    # test "direction independent function applied to non-empty list" do
-    #   assert L.foldr([1, 2, 3, 4], 5, &(&1 + &2)) == 15
-    # end
+    @tag :pending
+    test "direction independent function applied to non-empty list" do
+      assert L.foldr([1, 2, 3, 4], 5, &(&1 + &2)) == 15
+    end
 
-    # @tag :pending
-    # test "direction dependent function applied to non-empty list" do
-    #   assert L.foldr([1, 2, 3, 4], 24, &(&1 / &2)) == 9
-    # end
+    @tag :pending
+    test "direction dependent function applied to non-empty list" do
+      assert L.foldr([1, 2, 3, 4], 24, &(&1 / &2)) == 9
+    end
 
-    # @tag :pending
-    # @tag :slow
-    # test "huge list" do
-    #   assert L.foldr(Enum.to_list(1..1_000_000), 0, &(&1 + &2)) ==
-    #            List.foldr(Enum.to_list(1..1_000_000), 0, &(&1 + &2))
-    # end
+    @tag :pending
+    @tag :slow
+    test "huge list" do
+      assert L.foldr(Enum.to_list(1..1_000_000), 0, &(&1 + &2)) ==
+               List.foldr(Enum.to_list(1..1_000_000), 0, &(&1 + &2))
+    end
   end
 
   describe "append" do

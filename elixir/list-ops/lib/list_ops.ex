@@ -69,12 +69,9 @@ defmodule ListOps do
     foldl(tail, f.(hd, acc), f)
   end
 
-  # @spec foldl(list, acc, (any, acc -> acc)) :: acc
-  # def foldl(l, acc, f) do
-  # end
-
   @spec foldr(list, acc, (any, acc -> acc)) :: acc
   def foldr(l, acc, f) do
+    l |> reverse() |> foldl(acc, f)
   end
 
   @spec append(list, list) :: list
