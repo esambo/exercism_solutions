@@ -1,5 +1,4 @@
 {
-  "blurb": "Write a robot simulator.",
   "authors": [],
   "contributors": [
     "amencarini",
@@ -23,6 +22,6 @@
       ".meta/example.ex"
     ]
   },
-  "source": "Inspired by an interview question at a famous company.",
-  "source_url": ""
+  "blurb": "Write a robot simulator.",
+  "source": "Inspired by an interview question at a famous company."
 }

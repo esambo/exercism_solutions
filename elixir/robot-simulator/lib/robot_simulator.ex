@@ -7,12 +7,12 @@ defmodule RobotSimulator do
   A direction.
   Valid directions are: `:north`, `:east`, `:south`, `:west`.
   """
-  @type direction :: atom()
+  @type direction() :: :north | :east | :south | :west
 
   @typedoc """
   Position coordinates x and y, increasing to the north and east.
   """
-  @type position :: {integer, integer}
+  @type position() :: {integer(), integer()}
 
   @typedoc """
   A robot with a direction and position.
@@ -22,7 +22,7 @@ defmodule RobotSimulator do
   @doc """
   Create a Robot Simulator given an initial direction and position.
   """
-  @spec create(direction :: atom, position :: {integer, integer}) :: robot
+  @spec create(direction, position) :: robot() | {:error, String.t()}
   def create(direction \\ :north, position \\ {0, 0})
 
   def create(direction, {x, y} = {x, y} = position) when direction in ~w[north east south west]a and is_integer(x) and is_integer(y) do
@@ -42,7 +42,7 @@ defmodule RobotSimulator do
 
   Valid instructions are: "R" (turn right), "L", (turn left), and "A" (advance)
   """
-  @spec simulate(robot :: robot, instructions :: String.t()) :: robot
+  @spec simulate(robot, instructions :: String.t()) :: robot() | {:error, String.t()}
   def simulate(%{direction: :north} = robot, "L" <> remaining_instructions) do
     robot
     |> Map.merge(%{direction: :west})
@@ -128,7 +128,7 @@ defmodule RobotSimulator do
 
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
-  @spec direction(robot :: robot) :: atom
+  @spec direction(robot) :: direction()
   def direction(robot) do
     robot.direction
   end
@@ -136,7 +136,7 @@ defmodule RobotSimulator do
   @doc """
   Return the robot's position.
   """
-  @spec position(robot :: robot) :: {integer, integer}
+  @spec position(robot) :: position()
   def position(robot) do
     robot.position
   end
