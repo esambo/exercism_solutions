@@ -47,12 +47,12 @@ defmodule Markdown do
   defp parse_block_type("* " <> _), do: :list
   defp parse_block_type(_), do: :paragraph
 
-  defp parse_header_md_level("# " <> t), do: {"1", t}
-  defp parse_header_md_level("## " <> t), do: {"2", t}
-  defp parse_header_md_level("### " <> t), do: {"3", t}
-  defp parse_header_md_level("#### " <> t), do: {"4", t}
-  defp parse_header_md_level("##### " <> t), do: {"5", t}
-  defp parse_header_md_level("###### " <> t), do: {"6", t}
+  defp parse_header_md_level("# " <> t), do: {"h1", t}
+  defp parse_header_md_level("## " <> t), do: {"h2", t}
+  defp parse_header_md_level("### " <> t), do: {"h3", t}
+  defp parse_header_md_level("#### " <> t), do: {"h4", t}
+  defp parse_header_md_level("##### " <> t), do: {"h5", t}
+  defp parse_header_md_level("###### " <> t), do: {"h6", t}
 
   defp parse_list_md("* " <> t), do: t
 
@@ -65,7 +65,7 @@ defmodule Markdown do
 
   defp enclose_with_header_tag(line) do
     {level, text} = parse_header_md_level(line)
-    tag_as(text, "h#{level}")
+    tag_as(text, level)
   end
 
   defp enclose_with_paragraph_tag(line) do
