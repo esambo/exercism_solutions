@@ -104,7 +104,7 @@ defmodule Markdown do
   end
 
   defp chop_ends_off_by(text, chars) do
-    String.slice(text, chars..-(chars + 1))
+    String.slice(text, chars..-(chars + 1)//1)
   end
 
   defp tag_as(text, tag) do
