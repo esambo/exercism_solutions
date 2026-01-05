@@ -53,6 +53,7 @@ defmodule Markdown do
   defp parse_header_md_level("#### " <> t), do: {"h4", t}
   defp parse_header_md_level("##### " <> t), do: {"h5", t}
   defp parse_header_md_level("###### " <> t), do: {"h6", t}
+  defp parse_header_md_level("#######" <> _reset = text), do: {"p", text}
 
   defp parse_list_md("* " <> t), do: t
 
