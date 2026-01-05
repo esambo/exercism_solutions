@@ -1,6 +1,19 @@
 # Wordy
 
+Welcome to Wordy on Exercism's Elixir Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Parse and evaluate simple math word problems returning the answer as an integer.
+
+## Iteration 0 — Numbers
+
+Problems with no operations simply evaluate to the number given.
+
+> What is 5?
+
+Evaluates to 5.
 
 ## Iteration 1 — Addition
 
@@ -32,8 +45,7 @@ Now, perform the other three operations.
 
 Handle a set of operations, in sequence.
 
-Since these are verbal word problems, evaluate the expression from
-left-to-right, _ignoring the typical order of operations._
+Since these are verbal word problems, evaluate the expression from left-to-right, _ignoring the typical order of operations._
 
 > What is 5 plus 13 plus 6?
 
@@ -41,54 +53,35 @@ left-to-right, _ignoring the typical order of operations._
 
 > What is 3 plus 2 multiplied by 3?
 
-15  (i.e. not 9)
+15 (i.e. not 9)
 
-## Bonus — Exponentials
+## Iteration 4 — Errors
 
-If you'd like, handle exponentials.
+The parser should reject:
 
-> What is 2 raised to the 5th power?
-
-32
-
-## Running tests
-
-Execute the tests with:
-
-```bash
-$ mix test
-```
-
-### Pending tests
-
-In the test suites, all but the first test have been skipped.
-
-Once you get a test passing, you can unskip the next one by
-commenting out the relevant `@tag :pending` with a `#` symbol.
-
-For example:
-
-```elixir
-# @tag :pending
-test "shouting" do
-  assert Bob.hey("WATCH OUT!") == "Whoa, chill out!"
-end
-```
-
-Or, you can enable all the tests by commenting out the
-`ExUnit.configure` line in the test suite.
-
-```elixir
-# ExUnit.configure exclude: :pending, trace: true
-```
-
-If you're stuck on something, it may help to look at some of
-the [available resources](https://exercism.io/tracks/elixir/resources)
-out there where answers might be found.
+- Unsupported operations ("What is 52 cubed?")
+- Non-math questions ("Who is the President of the United States")
+- Word problems with invalid syntax ("What is 1 plus plus 2?")
 
 ## Source
 
-Inspired by one of the generated questions in the Extreme Startup game. [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+### Created by
 
-## Submitting Incomplete Solutions
-It's possible to submit an incomplete solution so you can see how others have completed the exercise.
+- @davinlagerroos
+
+### Contributed to by
+
+- @angelikatyborska
+- @Cohen-Carlisle
+- @devonestes
+- @lpil
+- @martinsvalin
+- @MeerKatDev
+- @neenjaw
+- @parkerl
+- @sotojuan
+- @waiting-for-dev
+
+### Based on
+
+Inspired by one of the generated questions in the Extreme Startup game. - https://github.com/rchatley/extreme_startup
