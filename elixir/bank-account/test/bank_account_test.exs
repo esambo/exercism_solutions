@@ -76,24 +76,24 @@ defmodule BankAccountTest do
   end
 
   # @tag :pending
-  # test "cannot withdraw more than deposited", %{account: account} do
-  #   assert BankAccount.balance(account) == 0
-  #   assert BankAccount.deposit(account, 25) == :ok
-  #   assert BankAccount.withdraw(account, 50) == {:error, :not_enough_balance}
-  # end
+  test "cannot withdraw more than deposited", %{account: account} do
+    assert BankAccount.balance(account) == 0
+    assert BankAccount.deposit(account, 25) == :ok
+    assert BankAccount.withdraw(account, 50) == {:error, :not_enough_balance}
+  end
 
   # @tag :pending
-  # test "cannot withdraw negative", %{account: account} do
-  #   assert BankAccount.balance(account) == 0
-  #   assert BankAccount.deposit(account, 100) == :ok
-  #   assert BankAccount.withdraw(account, -50) == {:error, :amount_must_be_positive}
-  # end
+  test "cannot withdraw negative", %{account: account} do
+    assert BankAccount.balance(account) == 0
+    assert BankAccount.deposit(account, 100) == :ok
+    assert BankAccount.withdraw(account, -50) == {:error, :amount_must_be_positive}
+  end
 
   # @tag :pending
-  # test "cannot deposit negative", %{account: account} do
-  #   assert BankAccount.balance(account) == 0
-  #   assert BankAccount.deposit(account, -50) == {:error, :amount_must_be_positive}
-  # end
+  test "cannot deposit negative", %{account: account} do
+    assert BankAccount.balance(account) == 0
+    assert BankAccount.deposit(account, -50) == {:error, :amount_must_be_positive}
+  end
 
   # @tag :pending
   test "can handle concurrent transactions", %{account: account} do

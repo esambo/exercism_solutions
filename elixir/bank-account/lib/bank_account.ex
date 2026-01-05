@@ -45,7 +45,7 @@ defmodule BankAccount do
   Add the given amount to the account's balance.
   """
   @spec deposit(account, integer) :: :ok | {:error, :account_closed | :amount_must_be_positive}
-  def deposit(account, amount) do
+  def deposit(account, amount) when amount > 0 do
     if Process.alive?(account) do
       :ok = GenServer.call(account, {:update, amount})
     else
@@ -53,13 +53,25 @@ defmodule BankAccount do
     end
   end
 
+  def deposit(_account, _amount) do
+    {:error, :amount_must_be_positive}
+  end
+
   @doc """
   Subtract the given amount from the account's balance.
   """
   @spec withdraw(account, integer) ::
           :ok | {:error, :account_closed | :amount_must_be_positive | :not_enough_balance}
-  def withdraw(account, amount) do
-    deposit(account, -amount)
+  def withdraw(account, amount) when amount > 0 do
+    if Process.alive?(account) do
+      GenServer.call(account, {:update, -amount})
+    else
+      {:error, :account_closed}
+    end
+  end
+
+  def withdraw(_account, _amount) do
+    {:error, :amount_must_be_positive}
   end
 
   # Server (callbacks)
@@ -75,8 +87,12 @@ defmodule BankAccount do
   end
 
   @impl true
-  def handle_call({:update, amount}, _from, balance) do
+  def handle_call({:update, amount}, _from, balance) when balance + amount >= 0 do
     new_balance = balance + amount
     {:reply, :ok, new_balance}
+  end
+
+  def handle_call({:update, _amount}, _from, balance) do
+    {:reply, {:error, :not_enough_balance}, balance}
   end
 end
