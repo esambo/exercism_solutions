@@ -11,14 +11,14 @@ defmodule BankAccountTest do
     assert BankAccount.balance(account) == 0
   end
 
-  @tag :pending
+  # @tag :pending
   test "single deposit", %{account: account} do
     assert BankAccount.balance(account) == 0
     assert BankAccount.deposit(account, 100) == :ok
     assert BankAccount.balance(account) == 100
   end
 
-  @tag :pending
+  # @tag :pending
   test "multiple deposits", %{account: account} do
     assert BankAccount.balance(account) == 0
     assert BankAccount.deposit(account, 100) == :ok
@@ -26,7 +26,7 @@ defmodule BankAccountTest do
     assert BankAccount.balance(account) == 150
   end
 
-  @tag :pending
+  # @tag :pending
   test "withdraw once", %{account: account} do
     assert BankAccount.balance(account) == 0
     assert BankAccount.deposit(account, 100) == :ok
@@ -34,7 +34,7 @@ defmodule BankAccountTest do
     assert BankAccount.balance(account) == 25
   end
 
-  @tag :pending
+  # @tag :pending
   test "withdraw twice", %{account: account} do
     assert BankAccount.balance(account) == 0
     assert BankAccount.deposit(account, 100) == :ok
@@ -43,7 +43,7 @@ defmodule BankAccountTest do
     assert BankAccount.balance(account) == 0
   end
 
-  @tag :pending
+  # @tag :pending
   test "can do multiple operations sequentially", %{account: account} do
     assert BankAccount.balance(account) == 0
     assert BankAccount.deposit(account, 100) == :ok
@@ -54,21 +54,21 @@ defmodule BankAccountTest do
     assert BankAccount.balance(account) == 20
   end
 
-  @tag :pending
+  # @tag :pending
   test "cannot check balance of closed account", %{account: account} do
     assert BankAccount.balance(account) == 0
     BankAccount.close(account)
     assert BankAccount.balance(account) == {:error, :account_closed}
   end
 
-  @tag :pending
+  # @tag :pending
   test "cannot deposit into closed account", %{account: account} do
     assert BankAccount.balance(account) == 0
     BankAccount.close(account)
     assert BankAccount.deposit(account, 50) == {:error, :account_closed}
   end
 
-  @tag :pending
+  # @tag :pending
   test "cannot withdraw from closed account", %{account: account} do
     assert BankAccount.balance(account) == 0
     BankAccount.close(account)
@@ -95,7 +95,7 @@ defmodule BankAccountTest do
   #   assert BankAccount.deposit(account, -50) == {:error, :amount_must_be_positive}
   # end
 
-  @tag :pending
+  # @tag :pending
   test "can handle concurrent transactions", %{account: account} do
     assert BankAccount.balance(account) == 0
 
@@ -111,7 +111,7 @@ defmodule BankAccountTest do
     assert BankAccount.balance(account) == 1000
   end
 
-  @tag :pending
+  # @tag :pending
   test "incrementing balance from another process then checking it from test process", %{
     account: account
   } do
@@ -132,7 +132,7 @@ defmodule BankAccountTest do
     assert BankAccount.balance(account) == 20
   end
 
-  @tag :pending
+  # @tag :pending
   test "implementation for multiple account support", %{account: account} do
     assert is_pid(account)
 
