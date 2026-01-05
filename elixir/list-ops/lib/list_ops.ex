@@ -3,18 +3,18 @@ defmodule ListOps do
   # implementation. The point of this exercise is to create these basic
   # functions yourself. You may use basic Kernel functions (like `Kernel.+/2`
   # for adding numbers), but please do not use Kernel functions for Lists like
-  # `++`, `--`, `hd`, `tl`, `in`, and `length`.
+  # `++`, `--`, `hd`, `tl`, `in`, and `count`.
 
-  @spec length(list) :: non_neg_integer
-  @spec length(list, non_neg_integer()) :: non_neg_integer()
-  def length(l, i \\ 0)
+  @spec count(list) :: non_neg_integer
+  @spec count(list, non_neg_integer()) :: non_neg_integer()
+  def count(l, i \\ 0)
 
-  def length([], i) do
+  def count([], i) do
     i
   end
 
-  def length([_hd | rest], i) do
-    length(rest, i + 1)
+  def count([_hd | rest], i) do
+    count(rest, i + 1)
   end
 
   @spec reverse(list) :: list
