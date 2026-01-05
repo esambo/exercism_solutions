@@ -25,7 +25,8 @@ defmodule RobotSimulator do
   @spec create(direction, position) :: robot() | {:error, String.t()}
   def create(direction \\ :north, position \\ {0, 0})
 
-  def create(direction, {x, y} = {x, y} = position) when direction in ~w[north east south west]a and is_integer(x) and is_integer(y) do
+  def create(direction, {x, y} = position)
+      when direction in ~w[north east south west]a and is_integer(x) and is_integer(y) do
     %{direction: direction, position: position}
   end
 
