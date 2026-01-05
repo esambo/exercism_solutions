@@ -1,10 +1,3 @@
-if !System.get_env("EXERCISM_TEST_EXAMPLES") do
-  Code.load_file("robot_simulator.exs", __DIR__)
-end
-
-ExUnit.start()
-ExUnit.configure(exclude: :pending, trace: true)
-
 defmodule RobotSimulatorTest do
   use ExUnit.Case
 
@@ -14,6 +7,7 @@ defmodule RobotSimulatorTest do
     assert RobotSimulator.direction(robot) == :north
   end
 
+  @tag :pending
   test "create works with valid arguments" do
     robot = RobotSimulator.create(:north, {0, 0})
     assert RobotSimulator.position(robot) == {0, 0}
@@ -32,6 +26,7 @@ defmodule RobotSimulatorTest do
     assert RobotSimulator.direction(robot) == :west
   end
 
+  @tag :pending
   test "create errors if invalid direction given" do
     position = {0, 0}
     invalid_direction = {:error, "invalid direction"}
@@ -41,6 +36,7 @@ defmodule RobotSimulatorTest do
     assert RobotSimulator.create("east", position) == invalid_direction
   end
 
+  @tag :pending
   test "create errors if invalid position given" do
     direction = :north
     invalid_position = {:error, "invalid position"}
