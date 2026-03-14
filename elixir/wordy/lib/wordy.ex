@@ -47,7 +47,7 @@ defmodule Wordy do
     |> calc_left_to_right()
   end
 
-  defp calc(%{left: _left, operation: "cubed", right: "", rest: _rest}) do
+  defp calc(%{operation: "cubed"}) do
     raise ArgumentError
   end
 
