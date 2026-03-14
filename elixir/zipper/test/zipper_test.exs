@@ -6,11 +6,33 @@ defmodule ZipperTest do
   defp bt(value, left, right), do: %BT{value: value, left: left, right: right}
   defp leaf(value), do: %BT{value: value}
 
+  # t1:           .____1____.
+  #               2__.      4
+  #                  3
   defp t1, do: bt(1, bt(2, nil, leaf(3)), leaf(4))
+
+  # t2:           .____1____.
+  #               5__.      4
+  #                  3
   defp t2, do: bt(1, bt(5, nil, leaf(3)), leaf(4))
+
+  # t3:           .____1____.
+  #            .__2__.      4
+  #            5     3
   defp t3, do: bt(1, bt(2, leaf(5), leaf(3)), leaf(4))
+
+  # t4:           .____1____.
+  #               2         4
   defp t4, do: bt(1, leaf(2), leaf(4))
+
+  # t5:           .____1____.
+  #               2__.   .__6__.
+  #                  3   7     8
   defp t5, do: bt(1, bt(2, nil, leaf(3)), bt(6, leaf(7), leaf(8)))
+
+  # t6:           .____1____.
+  #               2__.      4
+  #                  5
   defp t6, do: bt(1, bt(2, nil, leaf(5)), leaf(4))
 
   # @tag :pending
