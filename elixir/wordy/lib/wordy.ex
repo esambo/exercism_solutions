@@ -17,7 +17,7 @@ defmodule Wordy do
   end
 
   defp calc_left_to_right(sub_question) do
-    ~r{^(?<left>-?\d*)( (?<operation>plus|minus|divided by|multiplied by|cubed)( (?<right>-?\d+)(?<rest>.*))?)?}
+    ~r{^(?<left>-?\d*)( (?<operation>plus|minus|divided by|multiplied by|cubed)( (?<right>-?\d+))?)?(?<rest>.*)$}
     |> Regex.named_captures(sub_question)
     |> Map.new(fn {key, val} -> {String.to_existing_atom(key), val} end)
     |> calc()
@@ -48,6 +48,10 @@ defmodule Wordy do
   end
 
   defp calc(%{left: _left, operation: "cubed", right: "", rest: _rest}) do
+    raise ArgumentError
+  end
+
+  defp calc(%{operation: ""}) do
     raise ArgumentError
   end
 

@@ -125,18 +125,18 @@ defmodule WordyTest do
   end
 
   # @tag :pending
-  # test "reject two numbers in a row" do
-  #   assert_raise ArgumentError, fn ->
-  #     Wordy.answer("What is 1 plus 2 1?")
-  #   end
-  # end
+  test "reject two numbers in a row" do
+    assert_raise ArgumentError, fn ->
+      Wordy.answer("What is 1 plus 2 1?")
+    end
+  end
 
-  # @tag :pending
-  # test "reject postfix notation" do
-  #   assert_raise ArgumentError, fn ->
-  #     Wordy.answer("What is 1 2 plus?")
-  #   end
-  # end
+# @tag :pending
+  test "reject postfix notation" do
+    assert_raise ArgumentError, fn ->
+      Wordy.answer("What is 1 2 plus?")
+    end
+  end
 
   # @tag :pending
   test "reject prefix notation" do
