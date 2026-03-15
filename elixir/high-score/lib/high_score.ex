@@ -1,25 +1,17 @@
 defmodule HighScore do
-  def new() do
-    # Please implement the new/0 function
-  end
+  @default_score 0
 
-  def add_player(scores, name, score) do
-    # Please implement the add_player/3 function
-  end
+  defdelegate new(), to: Map, as: :new
+  defdelegate add_player(scores, name, score), to: Map, as: :put
+  defdelegate remove_player(scores, name), to: Map, as: :delete
+  defdelegate reset_score(scores, name), to: __MODULE__, as: :add_player
+  defdelegate get_players(scores), to: Map, as: :keys
 
-  def remove_player(scores, name) do
-    # Please implement the remove_player/2 function
-  end
-
-  def reset_score(scores, name) do
-    # Please implement the reset_score/2 function
+  def add_player(scores, name) do
+    add_player(scores, name, @default_score)
   end
 
   def update_score(scores, name, score) do
-    # Please implement the update_score/3 function
-  end
-
-  def get_players(scores) do
-    # Please implement the get_players/1 function
+    Map.update(scores, name, score, &(&1 + score))
   end
 end
