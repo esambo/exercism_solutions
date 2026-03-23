@@ -231,10 +231,11 @@ defmodule FormTest do
 
     @tag task_id: 5
     test "has a custom 'address_tuple' type with named arguments" do
-      expected_type_definition =
+      expected_type_definitions = [
         "{street :: String.t(), postal_code :: String.t(), city :: String.t()}"
+      ]
 
-      assert_type({Form, :address_tuple}, expected_type_definition)
+      assert_type({Form, :address_tuple}, expected_type_definitions)
     end
 
     @tag task_id: 5
